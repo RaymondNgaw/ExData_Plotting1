@@ -1,25 +1,32 @@
-setwd('~/GitHub/project')
-
-if (!file.exists('plots')) {
-  dir.create('plots')
-}
-
-source('~/project/cleaned.R')
-
-png(filename='plots/plot4.png',width=480,height=480,units='px')
+png("plot4.png", height=480, width=480)
 
 par(mfrow=c(2,2))
 
-plot(power.consumption$DateTime,power.consumption$GlobalActivePower,ylab='Global Active Power',xlab='',type='l')
+plot(data$DateTime, 
+     data$Global_active_power, 
+     pch=NA, 
+     xlab="", 
+     ylab="Global Active Power (kilowatts)")
+lines(data$DateTime, data$Global_active_power)
 
-plot(power.consumption$DateTime,power.consumption$Voltage,xlab='datetime',ylab='Voltage',type='l')
+plot(data$DateTime, data$Voltage, ylab="Voltage", xlab="datetime", pch=NA)
+lines(data$DateTime, data$Voltage)
 
-lncol<-c('black','red','blue')
-lbls<-c('Sub_metering_1','Sub_metering_2','Sub_metering_3')
-plot(power.consumption$DateTime,power.consumption$SubMetering1,type='l',col=lncol[1],xlab='',ylab='Energy sub metering')
-lines(power.consumption$DateTime,power.consumption$SubMetering2,col=lncol[2])
-lines(power.consumption$DateTime,power.consumption$SubMetering3,col=lncol[3])
+plot(data$DateTime, 
+     data$Sub_metering_1, 
+     pch=NA, 
+     xlab="", 
+     ylab="Energy sub metering")
+lines(data$DateTime, data$Sub_metering_1)
+lines(data$DateTime, data$Sub_metering_2, col='red')
+lines(data$DateTime, data$Sub_metering_3, col='blue')
+legend('topright', 
+       c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), 
+       lty = c(1,1,1),
+       col = c('black', 'red', 'blue'),
+       bty = 'n')
 
-plot(power.consumption$DateTime,power.consumption$GlobalReactivePower,xlab='datetime',ylab='Global_reactive_power',type='l')
+with(data, plot(DateTime, Global_reactive_power, xlab='datetime', pch=NA))
+with(data, lines(DateTime, Global_reactive_power))
 
-x<-dev.off()
+dev.off()
