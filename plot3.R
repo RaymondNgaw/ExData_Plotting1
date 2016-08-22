@@ -1,19 +1,16 @@
-setwd('~/GitHub/project')
+png("plot3.png", height=480, width=480)
 
-if (!file.exists('plots')) {
-  dir.create('plots')
-}
+plot(data$DateTime, 
+     data$Sub_metering_1, 
+     pch=NA, 
+     xlab="", 
+     ylab="Energy sub metering")
+lines(data$DateTime, data$Sub_metering_1)
+lines(data$DateTime, data$Sub_metering_2, col='red')
+lines(data$DateTime, data$Sub_metering_3, col='blue')
+legend('topright', 
+       c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), 
+       lty = c(1,1,1),
+       col = c('black', 'red', 'blue'))
 
-source('~/project/cleaned.R')
-
-png(filename='plots/plot3.png',width=480,height=480,units='px')
-
-lncol<-c('black','red','blue')
-lbls<-c('Sub_metering_1','Sub_metering_2','Sub_metering_3')
-plot(power.consumption$DateTime,power.consumption$SubMetering1,type='l',col=lncol[1],xlab='',ylab='Energy sub metering')
-lines(power.consumption$DateTime,power.consumption$SubMetering2,col=lncol[2])
-lines(power.consumption$DateTime,power.consumption$SubMetering3,col=lncol[3])
-
-legend('topright',legend=lbls,col=lncol,lty='solid')
-
-x<-dev.off()
+dev.off()
