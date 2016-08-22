@@ -1,14 +1,8 @@
-setwd('~/GitHub/project')
+png("plot1.png", height=480, width=480)
 
-if (!file.exists('plots')) {
-  dir.create('plots')
-}
+hist(data$Global_active_power, col='red', 
+     xlab = 'Global Active Power (kilowatts)',
+     main = 'Global Active Power')
 
-source('~/project/cleaned.R')
-
-png(filename='plots/plot1.png',width=480,height=480,units='px')
-
-hist(power.consumption$GlobalActivePower,main='Global Active Power',xlab='Global Active Power (kilowatts)',col='red')
-
-x<-dev.off()
+dev.off()
 
